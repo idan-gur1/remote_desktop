@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace screenshot_testing.WindowsApi
+namespace RemoteDesktop.WindowsApi
 {
     static class Gdi32
     {

@@ -1,4 +1,4 @@
-﻿using screenshot_testing.WindowsApi;
+﻿using RemoteDesktop.WindowsApi;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 
 
-namespace screenshot_testing
+namespace RemoteDesktop
 {
     class ScreenCapture : IDisposable
     {
@@ -35,7 +35,6 @@ namespace screenshot_testing
         {
             Bitmap screenshot = new Bitmap(captureRect.Width, captureRect.Height);
 
-            // Create a graphics object to draw the screenshot
             using (Graphics g = Graphics.FromImage(screenshot))
             {
                 g.CopyFromScreen(captureRect.X, captureRect.Y, 0, 0, captureRect.Size, CopyPixelOperation.SourceCopy);
@@ -52,19 +51,15 @@ namespace screenshot_testing
             IntPtr memoryDC = Gdi32.CreateCompatibleDC(desktopDC);
             IntPtr bitmap = Gdi32.CreateCompatibleBitmap(desktopDC, captureRect.Width, captureRect.Height);
 
-            // Select the bitmap object into the memoryDC to perform the BitBlt.
             IntPtr oldBitmap = Gdi32.SelectObject(memoryDC, bitmap);
 
-            // Use BitBlt to capture the screen content into the bitmap.
             Gdi32.BitBlt(memoryDC, 0, 0, captureRect.Width, captureRect.Height, desktopDC, captureRect.X, captureRect.Y, SourceCopyPixelOperation); // SRCCOPY
 
-            // Restore the old bitmap and release resources.
             Gdi32.SelectObject(memoryDC, oldBitmap);
 
             Gdi32.DeleteObject(memoryDC);
             User32.ReleaseDC(desktopWindow, desktopDC);
 
-            // Create a Bitmap from the captured screen content and return it.
             Bitmap resultBitmap = Image.FromHbitmap(bitmap);
 
             Gdi32.DeleteObject(bitmap);
@@ -78,7 +73,6 @@ namespace screenshot_testing
             Point point = new Point(Screen.AllScreens[screen].Bounds.Left + 100,
                 Screen.AllScreens[screen].Bounds.Top + 100);
 
-            //IntPtr hWnd = GetDesktopWindow();
             IntPtr hWnd = User32.WindowFromPoint(point);
             IntPtr hDC = User32.GetDC(hWnd);
 

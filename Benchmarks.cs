@@ -7,7 +7,7 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
 using System.Text;
 
-namespace screenshot_testing
+namespace RemoteDesktop
 {
     [MemoryDiagnoser]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
