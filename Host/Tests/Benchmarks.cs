@@ -1,13 +1,14 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Running;
+using RemoteDesktop;
 using System;
 using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
 using System.Text;
 
-namespace RemoteDesktop
+namespace Host.Tests
 {
     [MemoryDiagnoser]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]

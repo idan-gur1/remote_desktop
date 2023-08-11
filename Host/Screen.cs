@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -53,7 +55,7 @@ namespace RemoteDesktop
 
             IntPtr oldBitmap = Gdi32.SelectObject(memoryDC, bitmap);
 
-            Gdi32.BitBlt(memoryDC, 0, 0, captureRect.Width, captureRect.Height, desktopDC, captureRect.X, captureRect.Y, SourceCopyPixelOperation); // SRCCOPY
+            Gdi32.BitBlt(memoryDC, 0, 0, captureRect.Width, captureRect.Height, desktopDC, captureRect.X, captureRect.Y, SourceCopyPixelOperation);
 
             Gdi32.SelectObject(memoryDC, oldBitmap);
 
@@ -82,6 +84,23 @@ namespace RemoteDesktop
             User32.ReleaseDC(hWnd, hDC);
 
             return scalingFactor;
+        }
+
+        public MemoryStream CaptureScreenToMemoryStream()
+        {
+            ScreenCapture screen = new ScreenCapture(0);
+
+            MemoryStream result = new MemoryStream();
+
+
+            using (Bitmap screenshot = screen.CaptureScreenApi())
+            {
+                screenshot.Save(result, ImageFormat.Jpeg);
+            }
+
+            result.Position = 0;
+                
+            return result;
         }
 
         public void Dispose()
