@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace RemoteDesktop.WindowsApi
+namespace Host.WindowsApi
 {
     static class User32
     {

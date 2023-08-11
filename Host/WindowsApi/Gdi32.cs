@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace RemoteDesktop.WindowsApi
+namespace Host.WindowsApi
 {
     static class Gdi32
     {
